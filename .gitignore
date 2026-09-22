@@ -1,1 +1,4 @@
 .env
+*.csv
+test*
+day6*
