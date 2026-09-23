@@ -186,17 +186,13 @@ async def stream_chat_with_tools(question: str):
         elif event_type == "on_tool_start":
             tool_name = event["name"]
             tool_input = event["data"].get("input")
-            print(f"\n\n{'=' * 22} ⚡ TOOL CALL DETECTED {'=' * 22}")
-            print(f"🔧 Tool Name : {tool_name}")
-            print(f"📥 Arguments : {tool_input}")
-            print(f"{'=' * 68}", flush=True)
+            print(f"\n\n[TOOL CALL: {tool_name}]")
+            print(f"Arguments: {tool_input}", flush=True)
 
         # 3. Visibly distinguish tool call result
         elif event_type == "on_tool_end":
             tool_output = event["data"].get("output")
-            print(f"\n{'=' * 22} ✅ TOOL EXECUTION RESULT {'=' * 20}")
-            print(f"📤 Output    : {tool_output}")
-            print(f"{'=' * 68}\n", flush=True)
+            print(f"[TOOL RESULT: {tool_output}]\n", flush=True)
 
     print("\n" + "-" * 70)
 
