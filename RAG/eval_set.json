@@ -1,0 +1,35 @@
+[
+  {
+    "id": "Q1",
+    "question": "What HTTP status code indicates that authentication credentials are missing or invalid?",
+    "expected_answer": "HTTP status code 401 Unauthorized indicates missing or invalid authentication credentials.",
+    "expected_sources": [
+      "03_http_status_codes.pdf"
+    ]
+  },
+  {
+    "id": "Q2",
+    "question": "What is the difference between authentication and authorization?",
+    "expected_answer": "Authentication is the process of establishing or verifying who the caller is, whereas authorization determines what the authenticated identity is permitted to do.",
+    "expected_sources": [
+      "07_api_authentication.pdf",
+      "08_api_authorization.pdf"
+    ]
+  },
+  {
+    "id": "Q3",
+    "question": "Which HTTP methods are defined as idempotent according to the specification?",
+    "expected_answer": "HTTP defines GET, PUT, and DELETE as idempotent methods, meaning repeating the request has the same intended effect as performing it once.",
+    "expected_sources": [
+      "09_api_idempotency.pdf"
+    ]
+  },
+  {
+    "id": "Q4",
+    "question": "What security protections does HTTPS and TLS provide for data in transit?",
+    "expected_answer": "HTTPS and TLS protect data in transit by providing encryption, server authentication, and integrity protection.",
+    "expected_sources": [
+      "05_https_and_tls.pdf"
+    ]
+  }
+]

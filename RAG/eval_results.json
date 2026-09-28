@@ -1,0 +1,72 @@
+{
+  "total_questions": 4,
+  "answer_correct": 4,
+  "answer_pass_rate": 100.0,
+  "citation_correct": 4,
+  "citation_correct_rate": 100.0,
+  "results": [
+    {
+      "id": "Q1",
+      "question": "What HTTP status code indicates that authentication credentials are missing or invalid?",
+      "expected_answer": "HTTP status code 401 Unauthorized indicates missing or invalid authentication credentials.",
+      "generated_answer": "The HTTP status code that indicates missing or invalid authentication credentials is **401 Unauthorized**. This is explicitly stated in [S1], which notes: \"401 Unauthorized indicates missing or invalid authentication credentials.\"",
+      "expected_sources": [
+        "03_http_status_codes.pdf"
+      ],
+      "cited_sources": [
+        "03_http_status_codes.pdf"
+      ],
+      "answer_correct": true,
+      "citation_correct": true,
+      "initial_citation_source_match": true
+    },
+    {
+      "id": "Q2",
+      "question": "What is the difference between authentication and authorization?",
+      "expected_answer": "Authentication is the process of establishing or verifying who the caller is, whereas authorization determines what the authenticated identity is permitted to do.",
+      "generated_answer": "Authentication is the process of establishing or verifying an identity, often using credentials, sessions, or tokens [S1]. Authorization determines whether an authenticated identity is permitted to perform a requested action on a resource, asking what the caller may do rather than just who they are [S2].",
+      "expected_sources": [
+        "07_api_authentication.pdf",
+        "08_api_authorization.pdf"
+      ],
+      "cited_sources": [
+        "07_api_authentication.pdf",
+        "08_api_authorization.pdf"
+      ],
+      "answer_correct": true,
+      "citation_correct": true,
+      "initial_citation_source_match": true
+    },
+    {
+      "id": "Q3",
+      "question": "Which HTTP methods are defined as idempotent according to the specification?",
+      "expected_answer": "HTTP defines GET, PUT, and DELETE as idempotent methods, meaning repeating the request has the same intended effect as performing it once.",
+      "generated_answer": "\n\nGET, PUT, and DELETE are defined as idempotent HTTP methods [S1][S2].",
+      "expected_sources": [
+        "09_api_idempotency.pdf"
+      ],
+      "cited_sources": [
+        "02_http_methods.pdf",
+        "09_api_idempotency.pdf"
+      ],
+      "answer_correct": true,
+      "citation_correct": true,
+      "initial_citation_source_match": true
+    },
+    {
+      "id": "Q4",
+      "question": "What security protections does HTTPS and TLS provide for data in transit?",
+      "expected_answer": "HTTPS and TLS protect data in transit by providing encryption, server authentication, and integrity protection.",
+      "generated_answer": "HTTPS and TLS protect data in transit by providing **encryption**, **server authentication**, and **integrity protection** [S1].",
+      "expected_sources": [
+        "05_https_and_tls.pdf"
+      ],
+      "cited_sources": [
+        "05_https_and_tls.pdf"
+      ],
+      "answer_correct": true,
+      "citation_correct": true,
+      "initial_citation_source_match": true
+    }
+  ]
+}

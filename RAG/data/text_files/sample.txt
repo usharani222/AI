@@ -1,0 +1,31 @@
+EventFlow — Platform Overview
+
+## 1. Introduction
+
+EventFlow is a multi-tenant event booking platform. Event organizers can create events, define venue details, set ticket capacity, and share booking links with attendees. Attendees can browse events and reserve tickets through the platform.
+
+## 2. Technology Stack
+
+The frontend is built using Next.js and React. Backend APIs are developed using FastAPI. PostgreSQL stores user, event, booking, and payment records. Redis is used for temporary seat reservations and caching.
+
+## 3. Seat Reservation
+
+When a user selects a seat, EventFlow creates a temporary reservation in Redis. A seat hold expires after five minutes if the user does not complete checkout. This prevents abandoned reservations from blocking seats indefinitely.
+
+Once payment succeeds, the booking is confirmed and stored in PostgreSQL. If payment fails, the temporary seat hold is released so another user can reserve the seat.
+
+## 4. Event Capacity
+
+Event organizers define the maximum capacity when creating an event. The platform prevents confirmed bookings from exceeding the event’s configured capacity.
+
+## 5. Notifications
+
+EventFlow sends booking confirmation notifications after a successful booking. Notification records are stored in MongoDB.
+
+## 6. Security
+
+The platform uses role-based access control. Organizers can manage events they own, while attendees can view events and manage their own bookings. Authentication tokens are validated by the API gateway before requests reach backend services.
+
+## 7. Availability and Reliability
+
+Redis is used for temporary seat holds, while PostgreSQL is the source of truth for confirmed bookings. A background reconciliation process checks payment and booking states when payment results are delayed or uncertain.
