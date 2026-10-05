@@ -1,15 +1,24 @@
-from langchain_core.runnables import graph
-from numpy import gradient
-from pandas.core.indexes import category
-from langgraph.graph import START, END, StateGraph
-from typing import TypedDict
+"""
+Support Ticket Resolution Workflow using LangGraph StateGraph.
 
+This script demonstrates state management across sequential graph nodes:
+1. get_ticket: Collects the user's issue text.
+2. classify: Categorizes the issue (authentication, technical, billing, or general).
+3. set_priority: Assigns a priority level based on category.
+4. resolve: Generates an appropriate troubleshooting resolution.
+"""
+
+from typing import TypedDict
+from langgraph.graph import START, END, StateGraph
+
+# --- 1. State Definition ---
 class SupportTicketState(TypedDict):
     ticket_text:str
     category:str
     priority:str
     resolve:str
 
+# --- 2. Node Functions (State Reducers/Transformers) ---
 def get_ticket(state: SupportTicketState):
     ticket_text=input("Enter the issue faced:")
     return {"ticket_text":ticket_text}
@@ -27,7 +36,8 @@ def classify(state: SupportTicketState):
     return {"category":category}
 
 def set_priority(state: SupportTicketState):
-    category= state["category"]
+    """Assigns priority based on ticket category."""
+    category = state["category"]
     if category == "authentication":
         priority = "very high"
     elif category == "billing":
@@ -45,35 +55,38 @@ def resolve(state: SupportTicketState):
     elif priority == "high":
         resolve="Share the billing info via mail also check bankaccount if deducted or not confirm first"
     elif priority == "medium":
-        resolve="your concern has been forwarded to technical team"
+        resolve = "your concern has been forwarded to technical team"
     else:
-        resolve="Please try after some time"
-    return {"resolve":resolve}
+        resolve = "Please try after some time"
+    return {"resolve": resolve}
 
-## graph
+# --- 3. Build & Compile Graph ---
+graph = StateGraph(SupportTicketState)
 
-graph=StateGraph(SupportTicketState)
+# Add nodes
+graph.add_node("ticket_data", get_ticket)
+graph.add_node("classify", classify)
+graph.add_node("priority", set_priority)
+graph.add_node("resolve", resolve)
 
-graph.add_node("ticket_data",get_ticket)
-graph.add_node("classify",classify)
-graph.add_node("priority",set_priority)
-graph.add_node("resolve",resolve)
+# Define execution flow (edges)
+graph.add_edge(START, "ticket_data")
+graph.add_edge("ticket_data", "classify")
+graph.add_edge("classify", "priority")
+graph.add_edge("priority", "resolve")
+graph.add_edge("resolve", END)
 
-graph.add_edge(START,"ticket_data")
-graph.add_edge("ticket_data","classify")
-graph.add_edge("classify","priority")
-graph.add_edge("priority","resolve")
-graph.add_edge("resolve",END)
-
-app=graph.compile()
+# Compile into a runnable application
+app = graph.compile()
 print("Starting the application...\nGraph compiled\n")
 
-result=app.invoke(
+# --- 4. Execute the Graph ---
+result = app.invoke(
     {
-        "ticket_text":"",
-        "category":"",
-        "priority":"",
-        "resolve":""
+        "ticket_text": "",
+        "category": "",
+        "priority": "",
+        "resolve": ""
     }
 )
 
